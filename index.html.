@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS Delivery — Painel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* (MANTIVE SEU CSS ORIGINAL E ADICIONEI O ESTILO PARA AS NOVAS PÁGINAS) */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --p: #0f2d38; --p2: #1a4a5c; --p3: #225f75; --p4: #2d7a96; --accent: #00c8a0; --accent2: #00a882; --bg: #f0f5f7; --surf: #ffffff; --border: #dce8ed; --text: #0f2028; --dim: #7a9aaa; --red: #e03030; --red-bg: #fdeaea; --yellow: #e07820; --yellow-bg: #fdf3e8; --green: #1a9e6e; --green-bg: #e8f7f2; --sidebar: 60px; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; overflow: hidden; }
+        
+        /* ... [SEU CSS ORIGINAL AQUI] ... */
+        #login-screen { position: fixed; inset: 0; z-index: 1000; background: var(--p); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        #app { display: none; height: 100vh; flex-direction: column; }
+        #app.visible { display: flex; }
+        .page { display: none; flex: 1; overflow-y: auto; padding: 20px; flex-direction: column; gap: 14px; }
+        .page.active { display: flex; }
+        /* Adicionando estilo básico para as novas abas */
+        .placeholder-content { padding: 40px; text-align: center; color: var(--dim); }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <div class="login-box">
+        <div class="login-title">Acesso restrito</div>
+        <input class="login-input" id="pwd-input" type="password" placeholder="Senha" maxlength="6">
+        <button class="login-btn" onclick="doLogin()">Entrar</button>
+    </div>
+</div>
+
+<div id="app">
+    <div class="topbar">
+        <div class="topbar-title" id="page-title">Entregas</div>
+    </div>
+    <div class="app-body">
+        <div class="sidebar">
+            <button class="nav-btn active" onclick="goTo('entregas')">🛵</button>
+            <button class="nav-btn" onclick="goTo('lojas')">🏪</button>
+            <button class="nav-btn" onclick="goTo('clientes')">👤</button>
+            <div class="sidebar-spacer"></div>
+            <button class="nav-btn" onclick="goTo('config')">⚙️</button>
+        </div>
+        <div class="main">
+            <div class="page active" id="page-entregas">
+                <h2>Painel de Entregas</h2>
+                <p>Aqui ficam as estatísticas e a tabela...</p>
+            </div>
+            <div class="page" id="page-lojas">
+                <div class="placeholder-content"><h2>Gerenciamento de Lojas</h2></div>
+            </div>
+            <div class="page" id="page-clientes">
+                <div class="placeholder-content"><h2>Lista de Clientes</h2></div>
+            </div>
+            <div class="page" id="page-config">
+                <div class="placeholder-content"><h2>Configurações</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function doLogin() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app').classList.add('visible');
+    }
+
+    function goTo(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + pageId).classList.add('active');
+        document.getElementById('page-title').innerText = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+    }
+</script>
+
+</body>
+</html>
